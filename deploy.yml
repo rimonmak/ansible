@@ -4,9 +4,9 @@
 - name: Deploy hello-world to a remote host
   hosts: tag_awx_dev_True
   gather_facts: no
-  remote_user: centos
+  remote_user: ec2-user
   vars:
-    deployment_path: /home/centos/hello 
+    deployment_path: /var/www/html/hello 
   tasks: 
     - name: Create a project directory 
       file:
@@ -53,9 +53,9 @@
 - name: Run tests
   hosts: tag_awx_dev_True
   vars: 
-    DOCKER_HOST: 127.0.0.1
+    LOCAL_HOST: 127.0.0.1
   gather_facts: no
-  remote_user: centos
+  remote_user: ec2-user
   tasks:
     - name: Make a tempdir
       tempfile:
@@ -65,7 +65,7 @@
 
     - name: Get the index
       get_url:
-        url: "http://{{ DOCKER_HOST }}:4000/"
+        url: "http://{{ LOCAL_HOST }}:80/"
         dest: "{{ tempdir.path }}/url.txt"
       register: result
 
