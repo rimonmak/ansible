@@ -10,7 +10,7 @@
       register: tempdir
     - name: Get the index
       get_url:
-        url: "http://{{ DOCKER_HOST }}:4000/"
+        url: "http://{{ DOCKER_HOST }}:80/"
         dest: "{{ tempdir.path }}/url.txt"
       register: result
     - name: Make sure everything is good
